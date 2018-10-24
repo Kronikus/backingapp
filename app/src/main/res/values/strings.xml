@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">BackingApp2</string>
+    <string name="textview">TextView</string>
+    <string name="recipe_picture">Recipe picture</string>
+    <string name="servings_text">Servings</string>
+    <string name="no_url_recipestep">Video absent</string>
+    <string name="measure">measure</string>
+    <string name="quantity">quantity</string>
+    <string name="player_currentt_pos">player_current_pos</string>
+    <string name="no_more_steps">No more steps</string>
+</resources>
