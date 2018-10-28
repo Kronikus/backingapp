@@ -8,4 +8,5 @@
     <string name="quantity">quantity</string>
     <string name="player_currentt_pos">player_current_pos</string>
     <string name="no_more_steps">No more steps</string>
+    <string name="text_no_recipe">No recipe</string>
 </resources>
