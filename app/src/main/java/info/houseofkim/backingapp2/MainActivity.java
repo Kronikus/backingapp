@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
 
                 if (recipes != null) {
 
-                    Log.e("ViewModel", String.valueOf(recipes.length));
+                    Log.d("ViewModel", String.valueOf(recipes.length));
                 }
             }
         });

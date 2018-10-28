@@ -19,7 +19,6 @@ import android.widget.GridView;
 import java.util.Arrays;
 
 import info.houseofkim.backingapp2.R;
-import info.houseofkim.backingapp2.adapter.RecipeGridAdapter;
 import info.houseofkim.backingapp2.adapter.RecipeListAdapter;
 import info.houseofkim.backingapp2.data.Recipe;
 
@@ -28,7 +27,6 @@ public class MainFragment extends Fragment {
 
     private MainViewModel mViewModel;
     private RecipeListAdapter adapter;
-    private RecipeGridAdapter adapterGrid;
 
     public static MainFragment newInstance() {
         return new MainFragment();
@@ -41,7 +39,6 @@ public class MainFragment extends Fragment {
         View view = inflater.inflate(R.layout.main_fragment, container, false);
         adapter = new RecipeListAdapter(this.getContext());
 
-        //adapterGrid = new RecipeGridAdapter(this.getContext());
         RecipeListAdapter.OnItemClickListener mClickListener = new RecipeListAdapter.OnItemClickListener() {
             @Override
             public void onItemClickListener(int position) {
@@ -94,7 +91,6 @@ public class MainFragment extends Fragment {
                 public void onChanged(@Nullable Recipe[] recipes) {
 
                     adapter.setRecipes(Arrays.asList(recipes));
-//                    adapterGrid.setRecipes(Arrays.asList(recipes));
                 }
             });
         }
