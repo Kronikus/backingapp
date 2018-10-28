@@ -22,12 +22,11 @@ import info.houseofkim.backingapp2.data.Recipe;
 public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.RecipeViewHolder> implements ListAdapter {
     private final LayoutInflater mInflater;
     private List<Recipe> mRecipes = Arrays.asList(new Recipe[0]);
-    ListAdapter delegate = null;
 
     private static OnItemClickListener mListener;
 
     public interface OnItemClickListener {
-        public void onItemClickListener(int position);
+        void onItemClickListener(int position);
     }
 
     public RecipeListAdapter(Context context) {
@@ -40,7 +39,6 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
     @Override
     public RecipeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = mInflater.inflate(R.layout.recipe_item, parent, false);
-        //  private static myClickListener onItemClickListener;
         return new RecipeViewHolder(view, -1);
     }
 
@@ -53,7 +51,7 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
             holder.recipeServings.setText(String.format("Servings: %s", current.getServings()));
 
         } else {
-            holder.recipeName.setText("No recipe");
+            holder.recipeName.setText(R.string.text_no_recipe);
         }
     }
 
@@ -79,7 +77,7 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
         private final ImageView recipeImage;
         int position;
 
-        public RecipeViewHolder(View itemView, int pos) {
+        private RecipeViewHolder(View itemView, int pos) {
             super(itemView);
             recipeName = itemView.findViewById(R.id.recipe_name);
             recipeServings = itemView.findViewById(R.id.recipe_servings);
@@ -134,7 +132,7 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        RecipeViewHolder viewHolder = null;
+        RecipeViewHolder viewHolder;
 
         if (view == null) {
             view = mInflater.inflate(R.layout.recipe_item, viewGroup, false);
@@ -150,7 +148,7 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
             viewHolder.recipeServings.setText(String.format("Servings: %s", current.getServings()));
 
         } else {
-            viewHolder.recipeName.setText("No recipe");
+            viewHolder.recipeName.setText(R.string.text_no_recipe);
         }
         return view;
     }
