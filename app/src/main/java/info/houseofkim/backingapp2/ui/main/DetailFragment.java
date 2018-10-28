@@ -17,7 +17,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import java.util.Objects;
 
@@ -48,6 +47,19 @@ public class DetailFragment extends Fragment {
                 actionBar.setDisplayHomeAsUpEnabled(true);
             } else {
             }
+            detailModel = ViewModelProviders.of(getActivity()).get(MainViewModel.class);
+            // ingredientAdapter.setmIngredients(detailModel.current.getIngridients());
+            // stepAdapter.setmSteps(detailModel.current.getSteps());
+            detailModel.getSelected().observe(this, new Observer<Recipe>() {
+                @Override
+                public void onChanged(@Nullable Recipe recipe) {
+                    if (recipe != null) {
+                        stepAdapter.setmSteps(recipe.getSteps());
+                        ingredientAdapter.setmIngredients(recipe.getIngridients());
+                        //   Log.e("ViewModel", String.valueOf(recipe.getIngridients()));
+                    }
+                }
+            });
         }
     }
 
@@ -91,17 +103,17 @@ public class DetailFragment extends Fragment {
             public void onItemClick(int position) {
                 detailModel.setSelectedStep(position);
                 detailModel.setCurrentStep(position);
-
-                Log.d("DetailFragment", "onclick "+ String.valueOf(detailModel.current));
-                Toast.makeText(getContext(), "det click "+ String.valueOf(position), Toast.LENGTH_SHORT).show();
-                PlayerFragment playerFragment = PlayerFragment.newInstance();
-                //playerFragment.setmStepCurrent(detailModel.getCurrentStep());
-                playerFragment.setVideoUrl(detailModel.getCurrentStep().getVideoURL());
-                FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction transaction = Objects.requireNonNull(fragmentManager).beginTransaction();
-                transaction.replace(R.id.container, playerFragment);
-                transaction.addToBackStack(null);
-                transaction.commit();
+                if (view.findViewById(R.id.exo_playerView) == null) {
+                    Log.d("DetailFragment", "Detail step click " + String.valueOf(detailModel.current));
+                    PlayerFragment playerFragment = PlayerFragment.newInstance();
+                    //playerFragment.setmStepCurrent(detailModel.getCurrentStep());
+                    playerFragment.setVideoUrl(detailModel.getCurrentStep().getVideoURL());
+                    FragmentManager fragmentManager = getFragmentManager();
+                    FragmentTransaction transaction = Objects.requireNonNull(fragmentManager).beginTransaction();
+                    transaction.replace(R.id.container, playerFragment);
+                    transaction.addToBackStack(null);
+                    transaction.commit();
+                }
             }
         });
         Log.d("DetailFragment", String.valueOf("activity"));
@@ -115,19 +127,7 @@ public class DetailFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         if (getActivity() != null) {
-            detailModel = ViewModelProviders.of(getActivity()).get(MainViewModel.class);
-           // ingredientAdapter.setmIngredients(detailModel.current.getIngridients());
-           // stepAdapter.setmSteps(detailModel.current.getSteps());
-            detailModel.getSelected().observe(this, new Observer<Recipe>() {
-                @Override
-                public void onChanged(@Nullable Recipe recipe) {
-                    if (recipe != null) {
-                        stepAdapter.setmSteps(recipe.getSteps());
-                        ingredientAdapter.setmIngredients(recipe.getIngridients());
-                     //   Log.e("ViewModel", String.valueOf(recipe.getIngridients()));
-                    }
-                }
-            });
+
         }
     }
 }

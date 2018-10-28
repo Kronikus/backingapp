@@ -18,7 +18,7 @@ public class Repository {
         return mRecipes;
     }
 
-    public void setmRecipes(Recipe[] mRecipes) {
+    public static void setmRecipes(Recipe[] mRecipes) {
         Repository.mRecipes.setValue(mRecipes);
     }
 
@@ -34,7 +34,7 @@ public class Repository {
         @Override
         protected void onPostExecute(Recipe[] recipes) {
             super.onPostExecute(recipes);
-            mRecipes.setValue(recipes);
+          setmRecipes(recipes);
             Log.e("Repository", "finished loading");
         }
 

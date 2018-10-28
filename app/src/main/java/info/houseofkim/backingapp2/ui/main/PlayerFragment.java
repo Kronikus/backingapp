@@ -78,14 +78,28 @@ public class PlayerFragment extends Fragment implements ExoPlayer.EventListener 
         View view = inflater.inflate(R.layout.player_fragment, container, false);
         mediaBinding = view.findViewById(R.id.exo_playerView);
         stepDescription = view.findViewById(R.id.player_step_description);
+        stepDescription.setText("video");
         tvError = view.findViewById(R.id.tv_error_no_url);
         tvError.setVisibility(View.INVISIBLE);
+        if (!videoUrl.equals("")) {
+            tvError.setVisibility(View.INVISIBLE);
+
+            initializePlayer();
+            mediaBinding.setVisibility(View.VISIBLE);
+
+
+        } else {
+            //  mediaBinding.setVisibility(View.INVISIBLE);
+            tvError.setVisibility(View.VISIBLE);
+        }
+        Log.e("Player", "oncreateview");
         return view;
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        Log.e("Player", "onactivitycreated");
         if (getActivity() != null) {
             MainViewModel playerModel = ViewModelProviders.of(getActivity()).get(MainViewModel.class);
             //  mStepCurrent = playerModel.getCurrentStep();
@@ -103,14 +117,18 @@ public class PlayerFragment extends Fragment implements ExoPlayer.EventListener 
                             MediaSource videoSource = new ExtractorMediaSource.Factory(dataSourceFactory)
                                     .createMediaSource(Uri.parse(videoUrl));
                             // Prepare the player with the source.
-                            exoPlayer.prepare(videoSource);
-                        }else {
+                            if (exoPlayer != null) {
+                                exoPlayer.prepare(videoSource);
+                            } else {
+                                initializePlayer();
+                            }
+                        } else {
                             mediaBinding.setVisibility(View.INVISIBLE);
                             tvError.setVisibility(View.VISIBLE);
                         }
                         descr = step.getDescription();
                         stepDescription.setText(descr);
-                        Log.e("PlayerFragment", videoUrl);
+                        Log.e("PlayerFragment", descr);
                     }
                 }
             });
@@ -121,23 +139,16 @@ public class PlayerFragment extends Fragment implements ExoPlayer.EventListener 
 //            int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
 //            decorView.setSystemUiVisibility(uiOptions);
         }
-        if (!videoUrl.equals("")) {
-            tvError.setVisibility(View.INVISIBLE);
 
-            initializePlayer();
-            mediaBinding.setVisibility(View.VISIBLE);
-
-
-        } else {
-            mediaBinding.setVisibility(View.INVISIBLE);
-            tvError.setVisibility(View.VISIBLE);
-        }
     }
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putLong(getString(R.string.player_currentt_pos), exoPlayer.getCurrentPosition());
+        if (exoPlayer != null) {
+            outState.putLong(getString(R.string.player_currentt_pos), exoPlayer.getCurrentPosition());
+        }
+        Log.e("Player", "onsave");
     }
 
     @Override
@@ -155,6 +166,7 @@ public class PlayerFragment extends Fragment implements ExoPlayer.EventListener 
     }
 
     private void initializePlayer() {
+        Log.e("Player", "initialize");
         if (exoPlayer == null) {
             exoPlayer = ExoPlayerFactory.newSimpleInstance(getContext());
 

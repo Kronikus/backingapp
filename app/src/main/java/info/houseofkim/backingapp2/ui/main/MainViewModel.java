@@ -34,7 +34,7 @@ public class MainViewModel extends AndroidViewModel {
         mAllRecipes = mRepository.getmRecipes();
         Log.d("ViewModel","starter");
     }
-    LiveData<Recipe[]> getmAllRecipes(){return mAllRecipes;}
+    public LiveData<Recipe[]> getmAllRecipes(){return mAllRecipes;}
 
     public MutableLiveData<Recipe> getSelected() {
         return selected;
@@ -43,8 +43,9 @@ public class MainViewModel extends AndroidViewModel {
     public void setSelected(int position) {
         Recipe[] recipes = mAllRecipes.getValue();
         if (recipes != null) {
-          //  Log.e("MainViewModel", "onclick "+ String.valueOf(recipes[position]));
             selected.setValue(recipes[position]);
+            Log.e("MainViewModel", "cl "+ String.valueOf(position));
+
         }
     }
     public Recipe getCurrent() {
@@ -66,7 +67,6 @@ public class MainViewModel extends AndroidViewModel {
     }
 
     public void setCurrentStep(int position) {
-        Log.e("Model",current.getName());
         this.currentStep = current.getSteps().get(position);
     }
 
@@ -76,7 +76,12 @@ public class MainViewModel extends AndroidViewModel {
 
     public void setSelectedStep(int position) {
         if (selected.getValue() != null) {
-        this.selectedStep.setValue(selected.getValue().getSteps().get(position));
+            Log.e("Model", String.valueOf(position));
+            Log.e("Model", String.valueOf(selected.getValue().getSteps().indexOf(currentStep)));
+
+            Log.e("Model", String.valueOf(selected.getValue().getSteps().get(position)));
+
+            this.selectedStep.setValue(selected.getValue().getSteps().get(position));
     }
     }
 

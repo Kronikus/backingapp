@@ -49,7 +49,7 @@ public class StepAdapter extends RecyclerView.Adapter<StepAdapter.StepViewHolder
 
         if (mSteps != null) {
             Step current = mSteps.get(position);
-            holder.recipeName.setText(current.getShortDescription());
+            holder.recipeName.setText(String.format("%s. %s", String.valueOf(current.getStep_num()), String.valueOf(current.getShortDescription())));
            // holder.recipeServings.setText(String.format("Servings: %s", current.getServings()));
 
         } else {holder.recipeName.setText("No recipe");}

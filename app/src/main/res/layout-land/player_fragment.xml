@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -12,25 +13,32 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginLeft="0dp"
-        android:layout_marginTop="71dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         android:gravity="center_vertical|center_horizontal"
         android:text="@string/no_url_recipestep"
         android:textSize="48sp"
         android:textStyle="bold"
-        android:visibility="invisible" />
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/player_step_description"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.exoplayer2.ui.SimpleExoPlayerView
         android:id="@+id/exo_playerView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginLeft="0dp"/>
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/player_step_description"
+        app:layout_constraintTop_toTopOf="parent">
 
+    </com.google.android.exoplayer2.ui.SimpleExoPlayerView>
 
     <TextView
         android:id="@+id/player_step_description"
@@ -39,13 +47,17 @@
 
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginLeft="0dp"
-        android:layout_marginTop="280dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp"
         android:gravity="center_vertical|center_horizontal"
         android:text="@string/textview"
-        android:visibility="visible" />
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_error_no_url" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/floatingActionButtonPrev"
@@ -53,32 +65,32 @@
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/player_step_description"
         android:layout_alignLeft="@+id/player_step_description"
-        android:layout_alignTop="@+id/player_step_description"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="124dp"
-        android:layout_marginEnd="8dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="32dp"
         android:clickable="true"
         android:focusable="true"
         android:onClick="buttonPrev"
-        app:srcCompat="@drawable/exo_controls_previous"
-        android:layout_marginRight="8dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/player_step_description"
+        app:srcCompat="@drawable/exo_controls_previous" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/floatingActionButtonNext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/player_step_description"
         android:layout_alignEnd="@+id/player_step_description"
         android:layout_alignRight="@+id/player_step_description"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="124dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginRight="20dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:clickable="true"
         android:focusable="true"
         android:onClick="buttonNext"
-        app:srcCompat="@drawable/exo_icon_next"
-        android:layout_marginLeft="8dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/player_step_description"
+        app:srcCompat="@drawable/exo_icon_next" />
 
-</RelativeLayout>
+</android.support.constraint.ConstraintLayout>
